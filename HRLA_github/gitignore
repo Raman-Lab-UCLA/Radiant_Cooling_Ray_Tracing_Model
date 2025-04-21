@@ -1,0 +1,50 @@
+# .gitignore for MRT Simulation Toolkit
+
+# MATLAB generated files
+*.mat
+*.fig
+*.mlx
+*.slx
+*.mexa64
+*.mexw64
+*.mexmaci64
+
+# Simulink cache
+slprj/
+
+# MATLAB autosave and backup
+*~
+_*autosave*
+*.asv
+
+# Temporary files
+*.log
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# MATLAB preferences and history
+.matlab
+history.m
+
+# Output images and results
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Python virtual environments (if any)
+venv/
+ENV/
+
+# Visual Studio Code settings
+.vscode/
+
+# JetBrains IDE files
+.idea/
+
+# Node modules (if front-end code added)
+node_modules/

@@ -1,0 +1,57 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 TLDR:\
+First, run model_setup_file_generator_2.m, which generates the variables that define a given structure and that are used by the MRT_simulator_2.m file. Then, in MRT_simulator_2.m, load the corresponding .mat file to simulate it. \
+\
+\
+\
+This repository contains MATLAB scripts to define and simulate mean radiant temperature (MRT) distributions in various enclosure configurations. The workflow consists of two main steps:\
+\
+1. Generate model definition using `model_setup_file_generator_2.m`.\
+2. Run simulation using `MRT_simulator_2.m`.\
+\
+- Supporting functions in the folder:\
+  - `plane.m` \'97 computes a plane\'92s normal and reference point from three vertices\
+  - `rays.m` \'97 generates uniformly distributed ray direction vectors\
+  - `propagateRay_V1.m` \'97 traces each ray through planes to compute irradiance\
+\
+Step\'a01: Generate a Model Definition\
+\
+Open and run `model_setup_file_generator_2.m` in MATLAB. This script defines planar surfaces (floor, panels, reflectors, roof, etc.) for several scenarios and saves `.mat` files containing the following variables:\
+\
+- `planeNormal` \'96\'a0*N\'d73* array of normalized plane normals\
+- `planePoint` \'96\'a0*N\'d73* array of one reference point per plane\
+- `planeTemp`  \'96\'a0*1\'d7N* vector of plane temperatures (\'b0C)\
+- `planeReflectance` \'96\'a0*1\'d7N* vector of reflectance coefficients (0\'961)\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 You can customize the scenarios by editing the geometric definitions or temperature/reflectance arrays in the generator script.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Step\'a02: Run the MRT Simulation\
+\
+1. Open `MRT_simulator_2.m` in MATLAB.\
+2. At the top of the file, modify the `load()` call to reference the desired `.mat` file:\
+  e.g. load('ucla_demo_cad_0p58.mat');\
+ \
+3. Run the script. It will:\
+   - Set up a 1\'d71\'a0m measurement grid at a specified height.\
+   - Cast a large number of rays from each grid point.\
+   - Compute radiative exchange with each plane.\
+   - Compute and plot the mean radiant temperature (MRT) distribution.\
+\
+Plots and summary figures will be saved automatically (see `saveas` calls in the script).\
+\
+Customization\
+\
+- **Grid resolution**: modify `PPF` (points\'a0per\'a0meter) or ray resolution (`rayRes`) in `MRT_simulator_2.m`.\
+- **Panel temperatures**: adjust `planeTemps` assigned in the generator or directly in the simulator.\
+- **Reflectance values**: edit `planeReflectance` arrays or pass as function arguments.\
+\
+Long runtimes: reduce `rayRes` or grid size for faster, lower-accuracy runs.\
+}
